@@ -15,7 +15,7 @@ public class Quacker {
                         + "Hello! I'm Quacker \n"
                         + "What can I do for you?"
                         + divider;
-        String goodbye = "See you! Hopefully I see you again... *sad quack* \n";
+        String goodbye = divider + "See you! Hopefully I see you again... *sad quack* \n";
         String prompt = "";
 
         System.out.println(welcome);
@@ -148,11 +148,6 @@ public class Quacker {
                 }
             }
 
-            // If none of the valid tasks were given
-            // Notify user for a valid prompt
-            else {
-                System.out.println(divider + "Please enter a valid prompt in the following format: [Task Type] [Description]" + divider);
-            }
         }
 
         // Close scanner once user has said goodbye
