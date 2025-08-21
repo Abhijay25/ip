@@ -123,20 +123,21 @@ public class Quacker {
                     System.out.println(response);
                 }
             }
+            // Add events to the list
             else if (prompt.startsWith("event")) {
                 if (!prompt.contains("/from") || !prompt.contains("/to")) {
-                    System.out.println(divider + "Please use the format: event [description] /from [time/date] /to [time/date] for deadlines"
+                    System.out.println(divider + "Please use the format: event [description] /from [time/date] /to [time/date] for events"
                             + divider);
                 }
                 String[] breakdown = prompt.substring(6).split("/from", 2);
                 if (breakdown.length < 2){
-                    System.out.println(divider + "Please use the format: event [description] /from [time/date] /to [time/date] for deadlines"
+                    System.out.println(divider + "Please use the format: event [description] /from [time/date] /to [time/date] for events"
                             + divider);
                 } else {
                     String desc = breakdown[0];
                     String[] timings = breakdown[1].split("/to", 2);
                     if (timings.length < 2 || timings[0].trim().isEmpty()|| timings[1].trim().isEmpty()) {
-                        System.out.println(divider + "Please use the format: event [description] /from [time/date] /to [time/date] for deadlines"
+                        System.out.println(divider + "Please use the format: event [description] /from [time/date] /to [time/date] for events"
                                 + divider);
                     } else {
                         toDo.add(new Event(breakdown[0], timings[0], timings[1]));
@@ -147,9 +148,10 @@ public class Quacker {
                 }
             }
 
-            // Add prompt toDo and provide visual confirmation
+            // If none of the valid tasks were given
+            // Notify user for a valid prompt
             else {
-                System.out.println("Please enter a valid prompt in the following format: [Task Type] [Description]");
+                System.out.println(divider + "Please enter a valid prompt in the following format: [Task Type] [Description]" + divider);
             }
         }
 
