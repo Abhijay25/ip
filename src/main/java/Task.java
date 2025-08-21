@@ -2,6 +2,7 @@ public class Task{
     protected String description;
     protected boolean isCompleted;
 
+
     public Task(String description) {
         this.description = description;
         this.isCompleted = false;
@@ -24,5 +25,9 @@ public class Task{
 
     public void setIncomplete() {
         this.isCompleted = false;
+    }
+
+    public String toString() {
+        return this.description;
     }
 }
