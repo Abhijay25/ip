@@ -1,7 +1,68 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+
+-----------------------------------
+Hello! I'm Quacker
+What can I do for you?
+-----------------------------------
+
+Enter task:
+
+-----------------------------------
+'read book' has been added to the list!
+-----------------------------------
+
+Enter task:
+
+-----------------------------------
+'return book ' By  sunday has been added to the list!
+-----------------------------------
+
+Enter task:
+
+-----------------------------------
+'project meeting ' From  mon 2pm  To  4pm has been added to the list!
+-----------------------------------
+
+Enter task:
+
+-----------------------------------
+1. [ ][T] read book
+2. [ ][D] return book (By:  sunday)
+3. [ ][E] project meeting (From:  mon 2pm To:  4pm)
+-----------------------------------
+
+Enter task:
+
+-----------------------------------
+'read book' has been marked completed!
+-----------------------------------
+
+Enter task:
+
+-----------------------------------
+1. [X][T] read book
+2. [ ][D] return book (By:  sunday)
+3. [ ][E] project meeting (From:  mon 2pm To:  4pm)
+-----------------------------------
+
+Enter task:
+
+-----------------------------------
+'read book' has been unmarked!
+-----------------------------------
+
+Enter task:
+
+-----------------------------------
+1. [ ][T] read book
+2. [ ][D] return book (By:  sunday)
+3. [ ][E] project meeting (From:  mon 2pm To:  4pm)
+-----------------------------------
+
+Enter task:
+
+-----------------------------------
+Please enter a valid prompt in the following format: [Task Type] [Description]
+-----------------------------------
+
+See you! Hopefully I see you again... *sad quack*
 
