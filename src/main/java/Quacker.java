@@ -148,6 +148,29 @@ public class Quacker {
                 }
             }
 
+            else if (prompt.startsWith("delete")) {
+                try {
+                    String taskString = prompt.substring(7); // To check whether we're given a valid number
+                    int taskNumber = Integer.parseInt(taskString);
+
+                    if (taskNumber > toDo.size()) {
+                        System.out.println(divider + "Please enter a valid task number!" + divider);
+                        continue;
+                    }
+
+                    // Once the number is valid, prepare the deletion message
+                    String task = toDo.get(taskNumber - 1).toString();
+                    StringBuilder markResponse = new StringBuilder(divider);
+                    markResponse.append("The following taks has been removed from your list: \n").append(task).append(divider);
+                    System.out.println(markResponse);
+
+                    toDo.remove(taskNumber - 1); // Removes the specified task from the ArrayList
+
+                }
+                catch (NumberFormatException e){
+                    System.out.println(divider + "Please enter a valid task number!" + divider);
+                }
+            }
         }
 
         // Close scanner once user has said goodbye
