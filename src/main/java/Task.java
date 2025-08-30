@@ -17,6 +17,10 @@ public class Task{
     public String getStatusIcon() {
         return (this.isCompleted ? "X" : " ");
     }
+    
+    public String isComplete() {
+        return this.isCompleted;
+    }
 
     // Flip the completed status for task
     public void setComplete() {
@@ -29,5 +33,9 @@ public class Task{
 
     public String toString() {
         return this.description;
+    }
+    
+    public String formatTask() {
+        return " | " + (this.isCompleted() ? "1" : "0") + " | " + description; 
     }
 }

@@ -1,6 +1,9 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.File;
+import java.io.FileWriter;
+import java.nio.file.Paths;
 
 public class Quacker {
 
@@ -8,6 +11,7 @@ public class Quacker {
         // Initialize a scanner to take in prompt from the user
         Scanner scan = new Scanner(System.in);
         List<Task> toDo = new ArrayList<>();
+        File storage = new File("../data/Quacker.txt");
 
         String divider = "\n----------------------------------- \n"; //35 Dashes
 
