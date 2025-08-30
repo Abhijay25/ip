@@ -9,6 +9,7 @@ public class ToDo extends Task{
     }
     
     public String formatTask() {
-        return "T | " + (this.isCompleted() ? "1" : "0") + " | " + this.getDescription();
+        String status = this.isCompleted ? "1" : "0";
+        return "T | " + status + " | " + this.getDescription();
     }
 }

@@ -9,10 +9,11 @@ public class Event extends Task{
     }
     
     public String toString() {
-        return "[E] " + super.toString() + "(From: " + this.from + "To: " + this.to + ")";
+        return "[E] " + super.toString() + "(From:" + this.from + "To:" + this.to + ")";
     }
     
     public String formatTask() {
-        return "E | " + (this.isCompleted() ? "1" : "0") + " | " + this.getDescription() + " | "  + this.from + " | " + this.to;
+        String status = this.isCompleted ? "1" : "0";
+        return "E | " + status + " | " + this.getDescription() + " | "  + this.from + " | " + this.to;
     }
 }

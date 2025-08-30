@@ -1,11 +1,15 @@
 import java.io.File;
 import java.io.FileWriter;
-import java.util.IOException;
+import java.io.IOException;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class FileClass {
     private final File file;
     
-    public Storage(String filePath) {
+    public FileClass (String filePath) {
         this.file = new File(filePath);
     }
 
@@ -55,16 +59,16 @@ public class FileClass {
         switch(type) {
             case "T":
                 ToDo todo = new ToDo(desc[2]);
-                if (isComplete) task.setComplete();
-                return task;
+                if (isComplete) todo.setComplete();
+                return todo;
 
             case "D":
-                Deadline deadline = new Deadline(parts[2], parts[3]);
+                Deadline deadline = new Deadline(desc[2], desc[3]);
                 if (isComplete) deadline.setComplete();
                 return deadline;
                 
             case "E":
-                Event event = new Event(parts[2], parts[3], parts[4]);
+                Event event = new Event(desc[2], desc[3], desc[4]);
                 if (isComplete) event.setComplete();
                 return event;
         }

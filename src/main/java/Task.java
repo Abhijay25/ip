@@ -18,10 +18,6 @@ public class Task{
         return (this.isCompleted ? "X" : " ");
     }
     
-    public String isComplete() {
-        return this.isCompleted;
-    }
-
     // Flip the completed status for task
     public void setComplete() {
         this.isCompleted = true;
@@ -36,6 +32,7 @@ public class Task{
     }
     
     public String formatTask() {
-        return " | " + (this.isCompleted() ? "1" : "0") + " | " + description; 
+        String status = this.isCompleted ? "1" : "0";
+        return " | " + status + " | " + description; 
     }
 }
