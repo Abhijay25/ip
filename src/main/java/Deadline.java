@@ -7,6 +7,11 @@ public class Deadline extends Task{
     }
 
     public String toString() {
-        return "[D] " + super.toString() + "(By: " + this.by + ")";
+        return "[D] " + super.toString() + "(By:" + this.by + ")";
+    }
+    
+    public String formatTask() {
+        String status = this.isCompleted ? "1" : "0";
+        return "D | " + status + " | " + this.getDescription() + " | "  + this.by;
     }
 }

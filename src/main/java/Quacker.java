@@ -7,14 +7,15 @@ public class Quacker {
     public static void main(String[] args) {
         // Initialize a scanner to take in prompt from the user
         Scanner scan = new Scanner(System.in);
-        List<Task> toDo = new ArrayList<>();
+        FileClass file = new FileClass("../data/Quacker.txt");
+        List<Task> toDo = file.load();
 
         String divider = "\n----------------------------------- \n"; //35 Dashes
 
         String welcome = divider
-                        + "Hello! I'm Quacker \n"
-                        + "What can I do for you?"
-                        + divider;
+                + "Hello! I'm Quacker \n"
+                + "What can I do for you?"
+                + divider;
         String goodbye = divider + "See you! Hopefully I see you again... *sad quack* \n";
         String prompt = "";
 
@@ -29,7 +30,6 @@ public class Quacker {
                 // If user asks for current list, display all
                 case "list":
                     int len = toDo.size();
-
                     if (len == 0) {
                         String emptyResponse = divider + "Nothing to display. Try giving me something to add!" + divider;
                         System.out.println(emptyResponse);
@@ -62,6 +62,7 @@ public class Quacker {
 
                         // Once the number is valid, prepare the response message and mark as completed
                         toDo.get(taskNumber - 1).setComplete();
+                        file.save(toDo);
                         StringBuilder markResponse = new StringBuilder(divider);
                         markResponse.append("'").append(toDo.get(taskNumber - 1).getDescription())
                                 .append("' has been marked completed!").append(divider);
@@ -86,6 +87,7 @@ public class Quacker {
 
                         // Once the number is valid, prepare the response message and mark as completed
                         toDo.get(taskNumber - 1).setIncomplete();
+                        file.save(toDo);
                         StringBuilder markResponse = new StringBuilder(divider);
                         markResponse.append("'").append(toDo.get(taskNumber - 1).getDescription())
                                 .append("' has been unmarked!").append(divider);
@@ -108,6 +110,7 @@ public class Quacker {
                     } else {
                         // Add to list and provide visual confirmation
                         toDo.add(new Deadline(breakdown[0], breakdown[1]));
+                        file.save(toDo);
                         String response = divider + "'" + breakdown[0] + "' By " + breakdown[1] + " has been added to the list!" + divider;
                         System.out.println(response);
                     }
@@ -120,11 +123,12 @@ public class Quacker {
                     } else {
                         String taskString = prompt.substring(5);
                         toDo.add(new ToDo(taskString));
+                        file.save(toDo);
                         String response = divider + "'" + taskString + "' has been added to the list!" + divider;
                         System.out.println(response);
                     }
                     break;
-                    
+
                 // Add events to the list
                 case "event":
                     if (!prompt.contains("/from") || !prompt.contains("/to")) {
@@ -143,6 +147,7 @@ public class Quacker {
                                     + divider);
                         } else {
                             toDo.add(new Event(msgParts[0], timings[0], timings[1]));
+                            file.save(toDo);
                             String response = divider + "'" + msgParts[0] + "' From " + timings[0] + " To " + timings[1] +
                                     " has been added to the list!" + divider;
                             System.out.println(response);
@@ -167,13 +172,14 @@ public class Quacker {
                         System.out.println(markResponse);
 
                         toDo.remove(taskNumber - 1); // Removes the specified task from the ArrayList
+                        file.save(toDo);
 
                     }
                     catch (NumberFormatException e){
                         System.out.println(divider + "Please enter a valid task number!" + divider);
                     }
                     break;
-                    
+
                 default:
                     System.out.println(divider + "Sorry, please try a valid command" + divider);
                     break;
@@ -182,6 +188,7 @@ public class Quacker {
 
         // Close scanner once user has said goodbye
         scan.close();
+        file.save(toDo);
         System.out.println(goodbye);
     }
 }
