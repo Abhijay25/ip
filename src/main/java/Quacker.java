@@ -2,6 +2,13 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
+import java.time.format.DateTimeParseException;
+
+
 public class Quacker {
 
     public static void main(String[] args) {
@@ -102,17 +109,28 @@ public class Quacker {
                 // Add Deadlines to the list
                 case "deadline":
                     if (!prompt.contains("/by")) {
-                        System.out.println(divider + "Please use the format: deadline [description] /by [time/date] for deadlines" + divider);
+                        System.out.println(divider + "Please use the format: deadline [description] /by [DD-MM-YYYY | 24hrs time] for deadlines" + divider);
+                        break;
                     }
                     String[] breakdown = prompt.substring(9).split("/by", 2);
-                    if(breakdown[0].trim().isEmpty() || breakdown[1].trim().isEmpty() || breakdown.length < 2) {
-                        System.out.println(divider + "Please use the format: deadline [description] /by [time/date] for deadlines" + divider);
+                    if(breakdown.length < 2 || breakdown[0].trim().isEmpty() || breakdown[1].trim().isEmpty()) {
+                        System.out.println(divider + "Please use the format: deadline [description] /by [DD-MM-YYYY | 24hrs time] for deadlines" + divider);
                     } else {
-                        // Add to list and provide visual confirmation
-                        toDo.add(new Deadline(breakdown[0], breakdown[1]));
-                        file.save(toDo);
-                        String response = divider + "'" + breakdown[0] + "' By " + breakdown[1] + " has been added to the list!" + divider;
-                        System.out.println(response);
+                       try {
+                           String description = breakdown[0].trim();
+                           String cutoff = breakdown[1].trim();
+                           DateTimeFormatter format = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
+                           LocalDateTime deadlineDateTime = LocalDateTime.parse(cutoff, format);
+                           String finalDeadline = deadlineDateTime.format(DateTimeFormatter.ofPattern("d MMM yyyy, h:mm a"));
+
+                           // Add to list and provide visual confirmation
+                           toDo.add(new Deadline(description, finalDeadline));
+                           file.save(toDo);
+                           String response = divider + "'" + description + "' By " + finalDeadline + " has been added to the list!" + divider;
+                           System.out.println(response);
+                       } catch (DateTimeParseException e) {
+                           System.out.println(divider + "Please use the format: deadline [description] /by [DD-MM-YYYY | 24hrs time] for deadlines 3" + divider);
+                       }
                     }
                     break;
 
