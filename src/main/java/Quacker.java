@@ -63,6 +63,7 @@ public class Quacker {
 
                         // Once the number is valid, prepare the response message and mark as completed
                         toDo.get(taskNumber - 1).setComplete();
+                        file.save(toDo);
                         StringBuilder markResponse = new StringBuilder(divider);
                         markResponse.append("'").append(toDo.get(taskNumber - 1).getDescription())
                                 .append("' has been marked completed!").append(divider);
@@ -87,9 +88,11 @@ public class Quacker {
 
                         // Once the number is valid, prepare the response message and mark as completed
                         toDo.get(taskNumber - 1).setIncomplete();
+                        file.save(toDo);
                         StringBuilder markResponse = new StringBuilder(divider);
                         markResponse.append("'").append(toDo.get(taskNumber - 1).getDescription())
                                 .append("' has been unmarked!").append(divider);
+                        
                         System.out.println(markResponse);
 
                     }
@@ -109,6 +112,7 @@ public class Quacker {
                     } else {
                         // Add to list and provide visual confirmation
                         toDo.add(new Deadline(breakdown[0], breakdown[1]));
+                        file.save(toDo);
                         String response = divider + "'" + breakdown[0] + "' By " + breakdown[1] + " has been added to the list!" + divider;
                         System.out.println(response);
                     }
@@ -121,6 +125,7 @@ public class Quacker {
                     } else {
                         String taskString = prompt.substring(5);
                         toDo.add(new ToDo(taskString));
+                        file.save(toDo);
                         String response = divider + "'" + taskString + "' has been added to the list!" + divider;
                         System.out.println(response);
                     }
@@ -144,6 +149,7 @@ public class Quacker {
                                     + divider);
                         } else {
                             toDo.add(new Event(msgParts[0], timings[0], timings[1]));
+                            file.save(toDo);
                             String response = divider + "'" + msgParts[0] + "' From " + timings[0] + " To " + timings[1] +
                                     " has been added to the list!" + divider;
                             System.out.println(response);
@@ -168,6 +174,7 @@ public class Quacker {
                         System.out.println(markResponse);
 
                         toDo.remove(taskNumber - 1); // Removes the specified task from the ArrayList
+                        file.save(toDo);
 
                     }
                     catch (NumberFormatException e){
@@ -183,6 +190,7 @@ public class Quacker {
 
         // Close scanner once user has said goodbye
         scan.close();
+        file.save(toDo);
         System.out.println(goodbye);
     }
 }
