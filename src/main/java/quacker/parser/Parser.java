@@ -33,12 +33,12 @@ public class Parser {
      * @param prompt The command given by the user
      */
     public void parse(String prompt) {
-        prompt = prompt.toLowerCase(); // For case insensitive commands
+        prompt = prompt.toLowerCase();
+        int len = toDo.size();// For case insensitive commands
 
         switch(prompt.split(" ")[0]) {
             // If user asks for current list, display all
             case "list":
-                int len = toDo.size();
                 if (len == 0) {
                     String emptyResponse = divider + "Nothing to display. Try giving me something to add!" + divider;
                     System.out.println(emptyResponse);
@@ -46,7 +46,7 @@ public class Parser {
                     StringBuilder listResponse = new StringBuilder(divider);
                     for (int i = 0; i < len; i++) {
                         Task item = toDo.get(i);
-                        if(i == len - 1) {
+                        if (i == len - 1) {
                             listResponse.append(i + 1).append(". [").append(item.getStatusIcon()).append("]").append(item.toString());
                         } else {
                             listResponse.append(i + 1).append(". [").append(item.getStatusIcon()).append("]")
@@ -177,8 +177,8 @@ public class Parser {
 
             case "delete":
                 try {
-                    String taskString = prompt.substring(7); // To check whether we're given a valid number
-                    int taskNumber = Integer.parseInt(taskString);
+                    String taskString = prompt.substring(7); 
+                    int taskNumber = Integer.parseInt(taskString); // To check whether we're given a valid number
 
                     if (taskNumber > toDo.size()) {
                         System.out.println(divider + "Please enter a valid task number!" + divider);
@@ -198,6 +198,20 @@ public class Parser {
                 catch (NumberFormatException e){
                     System.out.println(divider + "Please enter a valid task number!" + divider);
                 }
+                break;
+                
+            case "find":
+                String findString = prompt.substring(5);
+                StringBuilder listResponse = new StringBuilder(divider + "\n");
+                for (int i = 0; i < len; i++) {
+                    Task item = toDo.get(i);
+                    if (item.getDescription().contains(findString)) {
+                        listResponse.append(i + 1).append(". [").append(item.getStatusIcon()).append("]")
+                                .append(item.toString()).append("\n");
+                    }
+                }
+                listResponse.append(divider);
+                System.out.println(listResponse);
                 break;
 
             default:
