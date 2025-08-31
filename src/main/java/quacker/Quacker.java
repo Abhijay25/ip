@@ -29,6 +29,7 @@ public class Quacker {
 
     /**
      * Starts Chatbot and is ready for inputs from user
+     * Prints Welcome message and task prompt
      */
     public void run() {
         Scanner scan = new Scanner(System.in);
