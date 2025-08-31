@@ -10,14 +10,25 @@ import java.util.Scanner;
 
 import quacker.tasks.*;
 
+/**
+ * List of type 'Task' 
+ * Used by Quacker Chatbot to store To-Do List locally
+ */
 public class FileClass {
     private final File file;
-    
+
+    /**
+     * Constructor method to setup a local .txt file for storage 
+     * @param filePath Location of .txt file on local computer
+     */
     public FileClass (String filePath) {
         this.file = new File(filePath);
     }
 
-    // Reading a file and getting the list of tasks 
+    /**
+     * Returns the locally stored file containing list of Tasks within To-Do List
+     * @return List of Tasks within .txt file
+     */
     public List<Task> load() {
         List<Task> tasks = new ArrayList<>();
         try {
@@ -43,7 +54,10 @@ public class FileClass {
         return tasks;
     }
 
-    // Saving a list of tasks to the file
+    /**
+     * Stores given tasks to local file
+     * @param tasks Task to be stored within the locally stored list
+     */
     public void save(TaskList tasks) {
         try (FileWriter fw = new FileWriter(file)) {
             for (Task t : tasks.list()) {
@@ -53,8 +67,12 @@ public class FileClass {
             System.out.println("Error saving tasks: ");
         }
     }
-    
-    // Get the task from line to store in output Array
+
+    /**
+     * Retrieve task from local file and returns respective child of 'Task'
+     * @param line Line of Task information within the local file
+     * @return Task from current line on local file
+     */
     private Task getTask(String line) {
         String[] desc = line.split(" \\| ");
         String type = desc[0];

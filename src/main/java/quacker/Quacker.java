@@ -8,17 +8,28 @@ import quacker.parser.Parser;
 import quacker.tasks.TaskList;
 import quacker.fileclass.FileClass;
 
+
+/**
+ * Entry Point Class for the Quacker Chatbot
+ */
 public class Quacker {
     private TaskList toDo;
     private FileClass file;
     private Parser parser;
-    
+
+    /**
+     * Constructor method to initiate the Chatbot
+     * Initialises the file, list and parser
+     */
     public Quacker() {
         this.file = new FileClass("../data/Quacker.txt");
         this.toDo = new TaskList(file.load());
         this.parser = new Parser(toDo, file);
     }
-    
+
+    /**
+     * Starts Chatbot and is ready for inputs from user
+     */
     public void run() {
         Scanner scan = new Scanner(System.in);
         String divider = "\n----------------------------------- \n"; //35 Dashes

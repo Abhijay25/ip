@@ -9,16 +9,29 @@ import java.time.format.DateTimeParseException;
 import quacker.tasks.*;
 import quacker.fileclass.FileClass;
 
+/**
+ * Parses through given command to provide appropriate feedback to user
+ * Manipulates given local file to load / save given information
+ */
 public class Parser {
     private TaskList toDo;
     private FileClass file;
     private static String divider = "\n----------------------------------- \n"; //35 Dashes
-    
+
+    /**
+     * Constructor method to initialize a parser to deal with user commands
+     * @param toDo TaskList Data Type that is used to store / retrieve information
+     * @param file Local file to retrieve /save information for data retention
+     */
     public Parser(TaskList toDo, FileClass file) {
         this.toDo = toDo;
         this.file = file;
     }
-    
+
+    /**
+     * Parse through given command and respond appropriately
+     * @param prompt The command given by the user
+     */
     public void parse(String prompt) {
         prompt = prompt.toLowerCase(); // For case insensitive commands
 
