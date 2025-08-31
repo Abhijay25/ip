@@ -1,9 +1,13 @@
+package quacker.parser;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 import java.time.format.DateTimeParseException;
 
+import quacker.tasks.*;
+import quacker.fileclass.FileClass;
 
 public class Parser {
     private TaskList toDo;

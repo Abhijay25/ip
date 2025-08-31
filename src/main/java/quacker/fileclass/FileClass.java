@@ -1,3 +1,5 @@
+package quacker.fileclass;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -5,6 +7,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import quacker.tasks.*;
 
 public class FileClass {
     private final File file;

@@ -1,6 +1,12 @@
+package quacker;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+
+import quacker.parser.Parser;
+import quacker.tasks.TaskList;
+import quacker.fileclass.FileClass;
 
 public class Quacker {
     private TaskList toDo;

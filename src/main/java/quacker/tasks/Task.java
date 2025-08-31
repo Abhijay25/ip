@@ -1,3 +1,5 @@
+package quacker.tasks;
+
 public class Task{
     protected String description;
     protected boolean isCompleted;
