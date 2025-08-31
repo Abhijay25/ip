@@ -40,9 +40,9 @@ public class FileClass {
     }
 
     // Saving a list of tasks to the file
-    public void save(List<Task> tasks) {
+    public void save(TaskList tasks) {
         try (FileWriter fw = new FileWriter(file)) {
-            for (Task t : tasks) {
+            for (Task t : tasks.list()) {
                 fw.write(t.formatTask() + System.lineSeparator()); // Using lineSeperator instead of \n for safety
             }
         } catch (IOException e) {
