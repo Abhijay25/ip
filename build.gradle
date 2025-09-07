@@ -42,7 +42,7 @@ test {
 }
 
 application {
-    mainClass.set("quacker.Quacker")
+    mainClass.set("quacker.gui.Launcher")
 }
 
 shadowJar {

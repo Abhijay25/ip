@@ -13,10 +13,10 @@ His services may not require monetary compensation, but he does ask for bread cr
 
 ## Features
 
-- [ ] Manage many different tasks -  Deadlines, Events, To-Dos
-- [ ] Mark and unmark tasks as required
-- [ ] Delete tasks once youre done with them
-- [ ] Have them stored for future use
+- [x] Manage many different tasks -  Deadlines, Events, To-Dos
+- [x] Mark and unmark tasks as required
+- [x] Delete tasks once youre done with them
+- [x] Have them stored for future use
 
 If you are a Java programmer, you can use it to practice Java too. Here's the main method:
 
