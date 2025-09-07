@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
+import quacker.Quacker;
 
 public class MainWindow extends Application {
     private ScrollPane scrollPane;
@@ -19,7 +20,8 @@ public class MainWindow extends Application {
     private Scene scene;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image QuackerImage = new Image(this.getClass().getResourceAsStream("/images/DaQuacker.png"));
+    private Image quackerImage = new Image(this.getClass().getResourceAsStream("/images/DaQuacker.png"));
+    private Quacker quacker = new Quacker();
 
 
     @Override
@@ -90,7 +92,12 @@ public class MainWindow extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        dialogContainer.getChildren().addAll(new DialogBox(userInput.getText(), userImage));
+        String userText = userInput.getText();
+        String quackerText = quacker.getResponse(userInput.getText());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getQuackerDialog(quackerText, quackerImage)
+        );
         userInput.clear();
     }
 }

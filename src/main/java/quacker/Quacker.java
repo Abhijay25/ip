@@ -55,6 +55,13 @@ public class Quacker {
         System.out.println(goodbye);
     }
 
+    /**
+     * Generates a response for the user's chat message
+     */
+    public String getResponse(String input) {
+        return "Quacker heard: " + input;
+    }
+
     public static void main(String[] args) {
         new Quacker().run();
     }
