@@ -5,13 +5,13 @@
 
 **Quacker** is here to save the day with its To-Do list functions that are ready for your every command! Go ahead and try using it for:
 
- - Blazing fast responses
+ - ~~FAST~~ BLAZNGLY FAST responses
  - Long term memory
  - Does the job, no questions asks **wink wink**
 
 His services may not require monetary compensation, but he does ask for bread crumbs from time to time...
 
-## Features
+## Features :smirk: 
 
 - [x] Manage many different tasks -  Deadlines, Events, To-Dos
 - [x] Mark and unmark tasks as required
@@ -28,3 +28,5 @@ public class Main {
 }
 
 ```
+
+Download [Here](https://youtu.be/dQw4w9WgXcQ?si=_2bpHnMWHskTPKiT)
