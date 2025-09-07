@@ -16,6 +16,7 @@ public class Quacker {
     private TaskList toDo;
     private FileClass file;
     private Parser parser;
+    private String commandType;
 
     /**
      * Constructor method to initiate the Chatbot
