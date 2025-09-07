@@ -30,11 +30,16 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        
+        String welcome = "Hello, I'm Quacker! How Can I Help You?";
+        dialogContainer.getChildren().addAll(
+                DialogBox.getQuackerDialog(welcome, quackerImage)
+        );
     }
 
     /** Injects the Quacker instance */
-    public void setQuacker(Quacker q) {
-        quacker = q;
+    public void setQuacker(Quacker quackerInstance) {
+        quacker = quackerInstance;
     }
 
     /**
