@@ -21,7 +21,7 @@ public class Deadline extends Task{
      * @return String of Task's description and Deadline
      */
     public String toString() {
-        return "[D] " + super.toString() + "(By:" + this.by + ")";
+        return "[D] " + super.toString() + " (By:" + this.by + ")";
     }
 
     /**

@@ -1,5 +1,6 @@
 package quacker;
 
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,6 @@ public class Quacker {
     private TaskList toDo;
     private FileClass file;
     private Parser parser;
-    private String commandType;
 
     /**
      * Constructor method to initiate the Chatbot
@@ -32,38 +32,44 @@ public class Quacker {
      * Starts Chatbot and is ready for inputs from user
      * Prints Welcome message and task prompt
      */
-    public void run() {
-        Scanner scan = new Scanner(System.in);
-        String divider = "\n----------------------------------- \n"; //35 Dashes
-
-        String welcome = divider
-                + "Hello! I'm Quacker \n"
-                + "What can I do for you?"
-                + divider;
-        String goodbye = divider + "See you! Hopefully I see you again... *sad quack* \n";
-        System.out.println(welcome);
-        
-        String prompt = "";
-        
-        while (!prompt.equals("bye")) {
-            System.out.println("Enter Task:");
-            prompt = scan.nextLine();
-            parser.parse(prompt);
-        }
-        
-        scan.close();
-        file.save(toDo);
-        System.out.println(goodbye);
-    }
+//    public void run() {
+//        Scanner scan = new Scanner(System.in);
+//        String divider = "\n----------------------------------- \n"; //35 Dashes
+//
+//        String welcome = divider
+//                + "Hello! I'm Quacker \n"
+//                + "What can I do for you?"
+//                + divider;
+//        String goodbye = divider + "See you! Hopefully I see you again... *sad quack* \n";
+//        System.out.println(welcome);
+//        
+//        String prompt = "";
+//        
+//        while (!prompt.equals("bye")) {
+//            System.out.println("Enter Task:");
+//            prompt = scan.nextLine();
+//            parser.parse(prompt);
+//        }
+//        
+//        scan.close();
+//        file.save(toDo);
+//        System.out.println(goodbye);
+//    }
 
     /**
      * Generates a response for the user's chat message
      */
     public String getResponse(String input) {
-        return "Quacker heard: " + input;
+       String response = parser.parse(input);
+       file.save(toDo);
+       return response;
     }
 
-    public static void main(String[] args) {
-        new Quacker().run();
-    }
+    /**
+     * Application Entry (No Longer in Use)
+     * Left for legacy and testing purposes only
+     */
+//    public static void main(String[] args) {
+//        new Quacker().run();
+//    }
 }

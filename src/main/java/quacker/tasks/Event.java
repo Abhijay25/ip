@@ -24,7 +24,7 @@ public class Event extends Task{
      * @return String of Event's description, beginning and end
      */
     public String toString() {
-        return "[E] " + super.toString() + "(From:" + this.from + "To:" + this.to + ")";
+        return "[E] " + super.toString() + " (From:" + this.from + "To:" + this.to + ")";
     }
 
     /**

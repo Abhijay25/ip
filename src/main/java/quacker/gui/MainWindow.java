@@ -1,6 +1,6 @@
 package quacker.gui;
+import javafx.application.Platform;
 import quacker.Quacker;
-import quacker.QuackerException;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,8 +24,8 @@ public class MainWindow extends AnchorPane {
 
     private Quacker quacker;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image quackerImage = new Image(this.getClass().getResourceAsStream("/images/DaQuacker.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image quackerImage = new Image(this.getClass().getResourceAsStream("/images/DaQuacker.png"));
 
     @FXML
     public void initialize() {
@@ -55,6 +55,10 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getQuackerDialog(response, quackerImage)
         );
         userInput.clear();
+        
+        if (input.toLowerCase().equals("bye")) {
+            Platform.exit();
+        }
     }
 }
 
