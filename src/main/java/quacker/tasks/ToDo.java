@@ -4,19 +4,11 @@ package quacker.tasks;
  * Child class of Task, made for ToDos
  */
 public class ToDo extends Task{
-
-    /**
-     * COnstructor method for ToDo Tasks
-     * @param description String description of ToDo
-     */
+    
     public ToDo(String description) {
         super(description);
     }
-
-    /**
-     * Complete description of Task, including status
-     * @return String of Task's description
-     */
+    
     public String toString() {
         return "[T] " + super.toString();
     }

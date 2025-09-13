@@ -47,7 +47,8 @@ public class Parser {
                     for (int i = 0; i < len; i++) {
                         Task item = toDo.get(i);
                         if (i == len - 1) {
-                            listResponse.append(i + 1).append(". [").append(item.getStatusIcon()).append("]").append(item.toString());
+                            listResponse.append(i + 1).append(". [").append(item.getStatusIcon()).append("]")
+                                    .append(item.toString());
                         } else {
                             listResponse.append(i + 1).append(". [").append(item.getStatusIcon()).append("]")
                                     .append(item.toString()).append("\n");
@@ -58,12 +59,13 @@ public class Parser {
 
             // Mark the task complete after checking for valid number
             case "mark":
+                String markError = "Please enter a valid task number!";
                 try {
                     String taskString = prompt.substring(5); // To check whether we're given a valid number
                     int taskNumber = Integer.parseInt(taskString);
 
                     if (taskNumber > toDo.size()) {
-                        return "Please enter a valid task number!";
+                        return markError;
                     }
 
                     // Once the number is valid, prepare the response message and mark as completed
@@ -74,19 +76,19 @@ public class Parser {
                             .append("' has been marked completed!");
                     return markResponse.toString();
 
-                }
-                catch (NumberFormatException e){
-                    return "Please enter a valid task number!";
+                } catch (NumberFormatException e){
+                    return markError;
                 }
 
             // Mark the task incomplete after checking for valid number
             case "unmark":
+                String unmarkError = "Please enter a valid task number!";
                 try {
                     String taskString = prompt.substring(7); // To check whether we're given a valid number
                     int taskNumber = Integer.parseInt(taskString);
 
                     if (taskNumber > toDo.size()) {
-                        return "Please enter a valid task number!";
+                        return unmarkError;
                     }
 
                     // Once the number is valid, prepare the response message and mark as completed
@@ -97,19 +99,19 @@ public class Parser {
                             .append("' has been unmarked!");
                     return unmarkResponse.toString();
 
-                }
-                catch (NumberFormatException e){
-                    return "Please enter a valid task number!";
+                } catch (NumberFormatException e){
+                    return unmarkError;
                 }
 
             // Add Deadlines to the list
             case "deadline":
+                String deadlineError = "Please use the format: deadline [description] /by [DD-MM-YYYY | 24hrs time] for deadlines";
                 if (!prompt.contains("/by")) {
-                    return "Please use the format: deadline [description] /by [DD-MM-YYYY | 24hrs time] for deadlines";
+                    return deadlineError;
                 }
                 String[] breakdown = prompt.substring(9).split("/by", 2);
                 if(breakdown.length < 2 || breakdown[0].trim().isEmpty() || breakdown[1].trim().isEmpty()) {
-                    return "Please use the format: deadline [description] /by [DD-MM-YYYY | 24hrs time] for deadlines";
+                    return deadlineError;
                 } else {
                     try {
                         String description = breakdown[0].trim();
@@ -124,7 +126,7 @@ public class Parser {
                         
                         return "'" + description + "' By " + finalDeadline + " has been added to the list!";
                     } catch (DateTimeParseException e) {
-                        return "Please use the format: deadline [description] /by [DD-MM-YYYY | 24hrs time] for deadlines";
+                        return deadlineError;
                     }
                 }
 
@@ -142,17 +144,18 @@ public class Parser {
 
             // Add events to the list
             case "event":
+                String eventError = "Please use the format: event [description] /from [time/date] /to [time/date] for events";
                 if (!prompt.contains("/from") || !prompt.contains("/to")) {
-                    return "Please use the format: event [description] /from [time/date] /to [time/date] for events";
+                    return eventError;
                 }
                 String[] msgParts = prompt.substring(6).split("/from", 2);
                 if (msgParts.length < 2){
-                    return "Please use the format: event [description] /from [time/date] /to [time/date] for events";
+                    return eventError;
                 } else {
                     String desc = msgParts[0];
                     String[] timings = msgParts[1].split("/to", 2);
                     if (timings.length < 2 || timings[0].trim().isEmpty()|| timings[1].trim().isEmpty()) {
-                        return "Please use the format: event [description] /from [time/date] /to [time/date] for events";
+                        return eventError;
                     } else {
                         toDo.add(new Event(msgParts[0], timings[0], timings[1]));
                         file.save(toDo);
@@ -163,12 +166,13 @@ public class Parser {
                 }
 
             case "delete":
+                String deleteError = "Please enter a valid task number!";
                 try {
                     String taskString = prompt.substring(7); 
                     int taskNumber = Integer.parseInt(taskString); // To check whether we're given a valid number
 
                     if (taskNumber > toDo.size()) {
-                        return "Please enter a valid task number!";
+                        return deleteError;
                     }
 
                     // Once the number is valid, prepare the deletion message
@@ -181,9 +185,8 @@ public class Parser {
 
                     return deleteResponse.toString();
 
-                }
-                catch (NumberFormatException e){
-                    return "Please enter a valid task number!";
+                } catch (NumberFormatException e){
+                    return deleteError;
                 }
                 
             case "find":

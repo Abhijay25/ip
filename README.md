@@ -1,17 +1,17 @@
 # Quacker - Your Daily Assistant
 
-> Why do everyting yourself, when you can find a tool to do it for you? 
-> -Sun tzu (probably)
+> Why do everything yourself, when you can find a tool to do it for you? 
+> -Sun Tzu (probably)
 
 **Quacker** is here to save the day with its To-Do list functions that are ready for your every command! Go ahead and try using it for:
 
- - ~~FAST~~ BLAZNGLY FAST responses
+ - ~~FAST~~ BLAZINGLY FAST responses
  - Long term memory
  - Does the job, no questions asks **wink wink**
 
 His services may not require monetary compensation, but he does ask for bread crumbs from time to time...
 
-## Features :smirk: 
+## Features :sunglasses: 
 
 - [x] Manage many different tasks -  Deadlines, Events, To-Dos
 - [x] Mark and unmark tasks as required

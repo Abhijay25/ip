@@ -16,3 +16,6 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 /build/libs/Quacker.jar
+
+/src/main/java/quacker/*.class
+/src/main/java/quacker/tasks/*.class
