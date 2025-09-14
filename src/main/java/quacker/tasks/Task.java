@@ -6,6 +6,7 @@ package quacker.tasks;
 public class Task{
     protected String description;
     protected boolean isCompleted;
+    protected String tag;
 
     /**
      * Constructor method to create task
@@ -14,6 +15,26 @@ public class Task{
     public Task(String description) {
         this.description = description;
         this.isCompleted = false;
+        this.tag = "";
+    }
+
+    /**
+     * Constructor method to create task
+     * @param description Description of Task given by user
+     * @param tag Assigned tag for given task
+     */
+    public Task(String description, String tag) {
+        this.description = description;
+        this.isCompleted = false;
+        this.tag = tag;
+    }
+
+    /**
+     * Returns tag of current task
+     * @return Tag of task
+     */
+    public String getTag() {
+        return this.tag;
     }
 
     /**
@@ -51,7 +72,7 @@ public class Task{
      * @return String of Task's description and status
      */
     public String toString() {
-        return this.description;
+        return this.description + " " + this.tag;
     }
 
     /**
@@ -60,6 +81,6 @@ public class Task{
      */
     public String formatTask() {
         String status = this.isCompleted ? "1" : "0";
-        return " | " + status + " | " + description; 
+        return " | " + status + " | " + description + " | " + tag; 
     }
 }
