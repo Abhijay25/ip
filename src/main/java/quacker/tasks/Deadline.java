@@ -12,6 +12,7 @@ public class Deadline extends Task{
     }
     
     public String toString() {
+        assert (by != null);
         return "[D] " + super.toString() + " (By:" + this.by + ")";
     }
 
@@ -20,6 +21,7 @@ public class Deadline extends Task{
      * @return Formatted String of Deadline
      */
     public String formatTask() {
+        assert (by != null);
         String status = this.isCompleted ? "1" : "0";
         return "D | " + status + " | " + this.getDescription() + " | "  + this.by;
     }

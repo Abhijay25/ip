@@ -59,6 +59,7 @@ public class FileClass {
      * @param tasks Task to be stored within the locally stored list
      */
     public void save(TaskList tasks) {
+        assert (file.exists());
         try (FileWriter fw = new FileWriter(file)) {
             for (Task t : tasks.list()) {
                 fw.write(t.formatTask() + System.lineSeparator()); // Using lineSeperator instead of \n for safety
@@ -74,6 +75,7 @@ public class FileClass {
      * @return Task from current line on local file
      */
     private Task getTask(String line) {
+        assert (file.exists());
         String[] desc = line.split(" \\| ");
         String type = desc[0];
         boolean isComplete = desc[1].equals("1");

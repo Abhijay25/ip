@@ -14,6 +14,7 @@ public class Event extends Task{
     }
     
     public String toString() {
+        assert (from != null && to != null);
         return "[E] " + super.toString() + " (From:" + this.from + "To:" + this.to + ")";
     }
 
@@ -22,6 +23,7 @@ public class Event extends Task{
      * @return Formatted String of Event
      */
     public String formatTask() {
+        assert (from != null && to != null);
         String status = this.isCompleted ? "1" : "0";
         return "E | " + status + " | " + this.getDescription() + " | "  + this.from + " | " + this.to;
     }

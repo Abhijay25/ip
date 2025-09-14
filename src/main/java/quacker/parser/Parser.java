@@ -43,6 +43,7 @@ public class Parser {
                     String emptyResponse = "Nothing to display. Try giving me something to add!";
                     return emptyResponse;
                 } else {
+                    assert (len > 0);
                     StringBuilder listResponse = new StringBuilder();
                     for (int i = 0; i < len; i++) {
                         Task item = toDo.get(i);
@@ -64,11 +65,12 @@ public class Parser {
                     String taskString = prompt.substring(5); // To check whether we're given a valid number
                     int taskNumber = Integer.parseInt(taskString);
 
-                    if (taskNumber > toDo.size()) {
+                    if (taskNumber > len) {
                         return markError;
                     }
 
                     // Once the number is valid, prepare the response message and mark as completed
+                    assert (taskNumber > 0);
                     toDo.get(taskNumber - 1).setComplete();
                     file.save(toDo);
                     StringBuilder markResponse = new StringBuilder();
@@ -87,11 +89,12 @@ public class Parser {
                     String taskString = prompt.substring(7); // To check whether we're given a valid number
                     int taskNumber = Integer.parseInt(taskString);
 
-                    if (taskNumber > toDo.size()) {
+                    if (taskNumber > len) {
                         return unmarkError;
                     }
 
                     // Once the number is valid, prepare the response message and mark as completed
+                    assert (taskNumber > 0);
                     toDo.get(taskNumber - 1).setIncomplete();
                     file.save(toDo);
                     StringBuilder unmarkResponse = new StringBuilder();
@@ -180,6 +183,7 @@ public class Parser {
                     StringBuilder deleteResponse = new StringBuilder();
                     deleteResponse.append("The following task has been removed from your list: \n").append(task);
 
+                    assert (taskNumber > 0);
                     toDo.remove(taskNumber - 1); // Removes the specified task from the ArrayList
                     file.save(toDo);
 
