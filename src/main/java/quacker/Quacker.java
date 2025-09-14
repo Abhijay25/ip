@@ -34,6 +34,8 @@ public class Quacker {
     public String getResponse(String input) {
        String response = parser.parse(input);
        file.save(toDo);
+       
+       assert (response != null);
        return response;
     }
 }
