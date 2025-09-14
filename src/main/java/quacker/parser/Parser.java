@@ -114,17 +114,34 @@ public class Parser {
                     return deadlineError;
                 } else {
                     try {
+                        DateTimeFormatter format = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");                        
+                        
                         String description = breakdown[0].trim();
                         String cutoff = breakdown[1].trim();
-                        DateTimeFormatter format = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
-                        LocalDateTime deadlineDateTime = LocalDateTime.parse(cutoff, format);
-                        String finalDeadline = deadlineDateTime.format(DateTimeFormatter.ofPattern("d MMM yyyy, h:mm a"));
-
-                        // Add to list and provide visual confirmation
-                        toDo.add(new Deadline(description, finalDeadline));
-                        file.save(toDo);
                         
-                        return "'" + description + "' By " + finalDeadline + " has been added to the list!";
+                        if (cutoff.contains(" #")) {
+                            // Split the second half into deadline and tag
+                            int lastHash = cutoff.lastIndexOf(" #");
+                            String tag = cutoff.substring(lastHash).trim();
+                            String deadline = cutoff.substring(0, lastHash).trim();
+
+                            // Once tag is seperated, convert time for to natural language
+                            // Add to file along with the tag
+                            LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline, format);
+                            String finalDeadline = deadlineDateTime.format(DateTimeFormatter.ofPattern("d MMM yyyy, h:mm a"));
+                            toDo.add(new Deadline(description, finalDeadline, tag));
+
+                            // Save file after edit and return confirmation
+                            file.save(toDo);
+                            return "'" + description + "' By " + finalDeadline + " has been added to the list!";
+                        } else {
+                            LocalDateTime deadlineDateTime = LocalDateTime.parse(cutoff, format);
+                            String finalDeadline = deadlineDateTime.format(DateTimeFormatter.ofPattern("d MMM yyyy, h:mm a"));
+                            toDo.add(new Deadline(description, finalDeadline));
+
+                            file.save(toDo);
+                            return "'" + description + "' By " + finalDeadline + " has been added to the list!";
+                        }
                     } catch (DateTimeParseException e) {
                         return deadlineError;
                     }
@@ -135,11 +152,23 @@ public class Parser {
                 if (prompt.length() <= 5) {
                     return "Please use the format: todo [description] for todos";
                 } else {
-                    String taskString = prompt.substring(5);
-                    toDo.add(new ToDo(taskString));
-                    file.save(toDo);
+                    String taskString = prompt.substring(5).trim();
                     
-                    return "'" + taskString + "' has been added to the list!";
+                    // Check if the description contains a tag
+                    // if it does, seperate description and tag, then handle accordingly
+                    if (taskString.contains(" #")) {
+                        int lastHash = taskString.lastIndexOf(" #");
+                        String tag = taskString.substring(lastHash).trim();
+                        String description = taskString.substring(0, lastHash).trim();
+                        
+                        toDo.add(new ToDo(description, tag));
+                        file.save(toDo);
+                        return "'" + description + "' has been added to the list!";
+                    } else {
+                        toDo.add(new ToDo(taskString));
+                        file.save(toDo);
+                        return "'" + taskString + "' has been added to the list!";
+                    }
                 }
 
             // Add events to the list
@@ -156,12 +185,25 @@ public class Parser {
                     String[] timings = msgParts[1].split("/to", 2);
                     if (timings.length < 2 || timings[0].trim().isEmpty()|| timings[1].trim().isEmpty()) {
                         return eventError;
-                    } else {
-                        toDo.add(new Event(msgParts[0], timings[0], timings[1]));
+                    }
+
+                    String from = timings[0];
+                    String toTiming = timings[1];
+                    String returnMsg = "'" + msgParts[0] + "' From " + timings[0] + " To " + timings[1] +
+                            " has been added to the list!";
+                    if (toTiming.contains(" #")) {
+                        int lastHash = toTiming.lastIndexOf(" #");
+                        String tag = toTiming.substring(lastHash).trim();
+                        String to = toTiming.substring(0, lastHash).trim();
+
+                        toDo.add(new Event(desc, from, to, tag));
                         file.save(toDo);
+                        return returnMsg;
                         
-                        return "'" + msgParts[0] + "' From " + timings[0] + " To " + timings[1] +
-                                " has been added to the list!";
+                    } else {
+                        toDo.add(new Event(desc, from, toTiming));
+                        file.save(toDo);
+                        return returnMsg;
                     }
                 }
 

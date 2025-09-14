@@ -10,10 +10,15 @@ public class Deadline extends Task{
         super(description);
         this.by = by;
     }
+
+    public Deadline(String description, String by, String tag) {
+        super(description, tag);
+        this.by = by;
+    }
     
     public String toString() {
         assert (by != null);
-        return "[D] " + super.toString() + " (By:" + this.by + ")";
+        return "[D] " + super.getDescription() + " (By:" + this.by + ") " + super.getTag();
     }
 
     /**
@@ -23,6 +28,6 @@ public class Deadline extends Task{
     public String formatTask() {
         assert (by != null);
         String status = this.isCompleted ? "1" : "0";
-        return "D | " + status + " | " + this.getDescription() + " | "  + this.by;
+        return "D | " + status + " | " + this.getDescription() + " | " + this.getTag() + " | "  + this.by;
     }
 }

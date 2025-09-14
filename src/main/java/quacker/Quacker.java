@@ -23,7 +23,7 @@ public class Quacker {
      * Initialises the file, list and parser
      */
     public Quacker() {
-        this.file = new FileClass("../data/Quacker.txt");
+        this.file = new FileClass("src/main/data/Quacker.txt");
         this.toDo = new TaskList(file.load());
         this.parser = new Parser(toDo, file);
     }

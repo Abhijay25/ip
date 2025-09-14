@@ -79,20 +79,21 @@ public class FileClass {
         String[] desc = line.split(" \\| ");
         String type = desc[0];
         boolean isComplete = desc[1].equals("1");
+        String description = desc[2];
         
         switch(type) {
             case "T":
-                ToDo todo = new ToDo(desc[2]);
+                ToDo todo = new ToDo(description, desc[3]);
                 if (isComplete) todo.setComplete();
                 return todo;
 
             case "D":
-                Deadline deadline = new Deadline(desc[2], desc[3]);
+                Deadline deadline = new Deadline(description, desc[4], desc[3]);
                 if (isComplete) deadline.setComplete();
                 return deadline;
                 
             case "E":
-                Event event = new Event(desc[2], desc[3], desc[4]);
+                Event event = new Event(description, desc[4], desc[5], desc[3]);
                 if (isComplete) event.setComplete();
                 return event;
         }

@@ -12,10 +12,16 @@ public class Event extends Task{
         this.from = from;
         this.to = to;
     }
+
+    public Event(String description, String from, String to, String tag) {
+        super(description, tag);
+        this.from = from;
+        this.to = to;
+    }
     
     public String toString() {
         assert (from != null && to != null);
-        return "[E] " + super.toString() + " (From:" + this.from + "To:" + this.to + ")";
+        return "[E] " + super.getDescription() + " (From:" + this.from + "To:" + this.to + ") " + super.getTag();
     }
 
     /**
@@ -25,6 +31,6 @@ public class Event extends Task{
     public String formatTask() {
         assert (from != null && to != null);
         String status = this.isCompleted ? "1" : "0";
-        return "E | " + status + " | " + this.getDescription() + " | "  + this.from + " | " + this.to;
+        return "E | " + status + " | " + this.getDescription() + " | " + this.getTag() + " | "  + this.from + " | " + this.to;
     }
 }

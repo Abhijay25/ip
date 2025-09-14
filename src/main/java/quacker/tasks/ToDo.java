@@ -9,6 +9,10 @@ public class ToDo extends Task{
         super(description);
     }
     
+    public ToDo(String description, String tag){
+        super(description, tag);
+    }
+    
     public String toString() {
         assert (description != null);
         return "[T] " + super.toString();
@@ -21,6 +25,6 @@ public class ToDo extends Task{
     public String formatTask() {
         assert (description != null);
         String status = this.isCompleted ? "1" : "0";
-        return "T | " + status + " | " + this.getDescription();
+        return "T | " + status + " | " + this.getDescription() + " | " + this.getTag();
     }
 }
