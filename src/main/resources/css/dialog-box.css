@@ -9,6 +9,7 @@
 .reply-label {
     -fx-background-radius: 1em 1em 1em 0;
     -fx-border-radius: 1em 1em 1em 0;
+    -fx-background-color: linear-gradient(to bottom right, #cc5500, #fff44f);
 }
 
 #displayPicture {
