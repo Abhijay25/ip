@@ -1,5 +1,6 @@
 package quacker.fileclass;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,6 +8,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 import quacker.tasks.*;
 
@@ -16,6 +18,7 @@ import quacker.tasks.*;
  */
 public class FileClass {
     private final File file;
+    private static final Logger logger = Logger.getLogger(FileClass.class.getName());
 
     /**
      * Constructor method to setup a local .txt file for storage 
@@ -38,16 +41,15 @@ public class FileClass {
                 
                 return tasks; // return empty list of tasks if file didn’t exist
             }
-            
-            Scanner sc = new Scanner(file);
-            while (sc.hasNextLine()) {
-                Task currentTask = getTask(sc.nextLine());
-                if (currentTask != null) {
-                    tasks.add(currentTask);
+
+            try (Scanner sc = new Scanner(file)) {
+                while (sc.hasNextLine()) {
+                    Task currentTask = getTask(sc.nextLine());
+                    if (currentTask != null) {
+                        tasks.add(currentTask);
+                    }
                 }
             }
-            
-            sc.close();
         } catch (IOException e) {
             System.out.println("Error loading tasks: ");
         }
@@ -59,13 +61,19 @@ public class FileClass {
      * @param tasks Task to be stored within the locally stored list
      */
     public void save(TaskList tasks) {
-        assert (file.exists());
-        try (FileWriter fw = new FileWriter(file)) {
+        // Error handling for missing file
+        if (!file.exists()) {
+            throw new IllegalStateException("File does not exist: " + file.getPath());
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (Task t : tasks.list()) {
-                fw.write(t.formatTask() + System.lineSeparator()); // Using lineSeperator instead of \n for safety
+                writer.write(t.formatTask());
+                writer.newLine();
             }
+            logger.info("Tasks saved successfully.");
         } catch (IOException e) {
-            System.out.println("Error saving tasks: ");
+            logger.severe("Error saving tasks: " + e.getMessage());
         }
     }
 
@@ -75,8 +83,17 @@ public class FileClass {
      * @return Task from current line on local file
      */
     private Task getTask(String line) {
-        assert (file.exists());
+        // Error handling for missing file
+        if (!file.exists()) {
+            throw new IllegalStateException("File does not exist: " + file.getPath());
+        }
+        
         String[] desc = line.split(" \\| ");
+        if (desc.length < 3) {
+            System.err.println("Invalid task line: " + line);
+            return null;
+        }
+        
         String type = desc[0];
         boolean isComplete = desc[1].equals("1");
         String description = desc[2];

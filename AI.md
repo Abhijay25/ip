@@ -10,4 +10,9 @@
 
 # Parser.java
 
-### Time Saved: 
+### Time Saved: 1 hour
+ - Better error handling and logging for missing file errors
+ - Increased efficiency for saving tasks (by using BuffereddWriter)
+ - Better loading of files with auto closing by using 'try' statement
+
+
