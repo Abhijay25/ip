@@ -18,6 +18,7 @@ public class Parser {
     private static final String ERROR_INVALID_TASK = "Please enter a valid task number!";
     private static final String ERROR_UNKNOWN_CMD = "Sorry, that is not a valid command. Please try again!";
     private static final String GOODBYE_MSG = "Goodbye! Hopefully I see you again... *sad quack*";
+    private static final String NOT_FOUND_MSG = "Sorry, I could not find that in your list! Try again?";
 
     /**
      * Constructor method to initialize a parser to deal with user commands
@@ -192,13 +193,18 @@ public class Parser {
                 StringBuilder findResponse = new StringBuilder("Is This What You're Looking For? \n");
                 for (int i = 0; i < len; i++) {
                     Task item = toDo.get(i);
-                    if (item.getDescription().contains(args)) {
+                    String itemDescription = item.getDescription().toLowerCase();
+                    if (itemDescription.contains(args.toLowerCase())) {
                         findResponse.append(i + 1).append(". [")
                                 .append(item.getStatusIcon()).append("]")
                                 .append(item.toString()).append("\n");
                     }
                 }
-                return findResponse.toString().trim();
+                if (findResponse.toString().equals("Is This What You're Looking For? \n")) {
+                    return NOT_FOUND_MSG;
+                } else {
+                    return findResponse.toString().trim();
+                }
 
             // Exit
             case "bye":
