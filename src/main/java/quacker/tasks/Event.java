@@ -21,7 +21,7 @@ public class Event extends Task{
     
     public String toString() {
         assert (from != null && to != null);
-        return "[E] " + super.getDescription() + " (From:" + this.from + "To:" + this.to + ") " + super.getTag();
+        return "[E] " + super.getDescription() + " (From:" + this.from + " To:" + this.to + ") " + super.getTag();
     }
 
     /**

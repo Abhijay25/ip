@@ -24,7 +24,7 @@ public class FileClass {
      * Constructor method to setup a local .txt file for storage 
      * @param filePath Location of .txt file on local computer
      */
-    public FileClass (String filePath) {
+    public FileClass(String filePath) {
         this.file = new File(filePath);
     }
 
@@ -36,9 +36,8 @@ public class FileClass {
         List<Task> tasks = new ArrayList<>();
         try {
             if (!file.exists()) {
-                file.getParentFile().mkdirs(); 
+                file.getParentFile().mkdirs();
                 file.createNewFile();
-                
                 return tasks; // return empty list of tasks if file didn’t exist
             }
 
@@ -51,7 +50,7 @@ public class FileClass {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error loading tasks: ");
+            logger.severe("Error loading tasks: " + e.getMessage());
         }
         return tasks;
     }
@@ -61,7 +60,6 @@ public class FileClass {
      * @param tasks Task to be stored within the locally stored list
      */
     public void save(TaskList tasks) {
-        // Error handling for missing file
         if (!file.exists()) {
             throw new IllegalStateException("File does not exist: " + file.getPath());
         }
@@ -79,41 +77,50 @@ public class FileClass {
 
     /**
      * Retrieve task from local file and returns respective child of 'Task'
+     * Handles optional fields safely to avoid crashes from malformed save files
      * @param line Line of Task information within the local file
      * @return Task from current line on local file
      */
     private Task getTask(String line) {
-        // Error handling for missing file
         if (!file.exists()) {
             throw new IllegalStateException("File does not exist: " + file.getPath());
         }
-        
+
         String[] desc = line.split(" \\| ");
         if (desc.length < 3) {
-            System.err.println("Invalid task line: " + line);
+            logger.warning("Invalid task line in save file: " + line);
             return null;
         }
-        
+
         String type = desc[0];
         boolean isComplete = desc[1].equals("1");
         String description = desc[2];
-        
-        switch(type) {
-            case "T":
-                ToDo todo = new ToDo(description, desc[3]);
+
+        switch (type) {
+            case "T": // ToDo
+                String todoTag = (desc.length > 3) ? desc[3] : "";
+                ToDo todo = new ToDo(description, todoTag);
                 if (isComplete) todo.setComplete();
                 return todo;
 
-            case "D":
-                Deadline deadline = new Deadline(description, desc[4], desc[3]);
+            case "D": // Deadline
+                String deadlineTag = (desc.length > 3) ? desc[3] : "";
+                String deadlineBy = (desc.length > 4) ? desc[4] : "";
+                Deadline deadline = new Deadline(description, deadlineBy, deadlineTag);
                 if (isComplete) deadline.setComplete();
                 return deadline;
-                
-            case "E":
-                Event event = new Event(description, desc[4], desc[5], desc[3]);
+
+            case "E": // Event
+                String eventTag = (desc.length > 3) ? desc[3] : "";
+                String eventFrom = (desc.length > 4) ? desc[4] : "";
+                String eventTo = (desc.length > 5) ? desc[5] : "";
+                Event event = new Event(description, eventFrom, eventTo, eventTag);
                 if (isComplete) event.setComplete();
                 return event;
+
+            default:
+                logger.warning("Unknown task type in save file: " + line);
+                return null;
         }
-        return null;
     }
 }

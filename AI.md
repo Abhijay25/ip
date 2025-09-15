@@ -8,7 +8,7 @@
  - Final check at return statement, ensuring returnedd value is non null
 
 
-# Parser.java
+# FileClass.java
 
 ### Time Saved: 1 hour
  - Better error handling and logging for missing file errors
@@ -16,3 +16,11 @@
  - Better loading of files with auto closing by using 'try' statement
 
 
+# Parser.java
+
+### Time Saved: 3 hours
+ - Cleaner return strings, DRY method implemented
+ - Cleaning up unused string
+ - Pointing out case sensitivity in command and storage issues
+ - Helped correct an oversight, where all inputs would be stored in lowercase only
+ - Handled errors in FileClass once Parser was refactored
